@@ -32,7 +32,15 @@ const loadNews = (id, name) => {
 const showNews = (datas, name) => {
 
     const sortedResponse = datas.sort(function (a, b) {
+        // console.log(typeof a.total_view)
+        // console.log(b.total_view)
+        // if (a.total_view != Number && b.total_view != Number) {
+
+        // }
+        // else { 
         return parseInt(b.total_view) - parseInt(a.total_view)
+        // }
+
     });
     console.log(sortedResponse)
 
@@ -57,7 +65,8 @@ const showNews = (datas, name) => {
         // console.log(each)
 
         const { author, details, thumbnail_url, title, total_view } = each
-        // console.log(author)
+        // console.log(author) 
+        // console.log(details.length)
         const { name, published_date, img } = author
 
         const news = document.createElement('div')
@@ -68,16 +77,15 @@ const showNews = (datas, name) => {
                         <img src="${thumbnail_url}" class="img-fluid rounded-start w-100 m-3" style="height: 300px;" "alt="...">
                     </div>
                     <div class="col-md-9">
-                        <div class="card-body ms-5" >
+                        <div class="card-body ms-5 mt-5" >
                             <h5 class="card-title">${title}</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This content is a little bit longer.</p>
+                            <p class="card-text">${details.length > 200 ? details.slice(0, 200) + "..." : details}</p>
                                <div class="d-flex">
                             <div class="d-flex align-items-center  w-25">
                             <img src="${img}" class="rounded-circle"
                                 style="height: 50px; width:50px;" alt="">
                                 <div class="ms-2">
-                                <p class="mb-0 mt-2">${name}</p>
+                                <p class="mb-0 mt-2">${name ? name : "Anonymous Writer"}</p>
                             <p class="ms-2">${published_date ? published_date.slice(0, 10) : "No Date Found"}</p>
                                 </div>
                             
