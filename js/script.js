@@ -13,29 +13,41 @@ const showNewsItems = (datas) => {
         div.classList.add("d-inline-flex", "px-4")
         div.innerHTML = `
         
-        <h6 onclick="loadNews('${data.category_id}')">${data.category_name} </h6>
+        <h6 onclick="loadNews('${data.category_id}','${data.category_name}')">${data.category_name} </h6>
         `
         newsItems.appendChild(div)
     }
 }
 
-const loadNews = (id) => {
+const loadNews = (id, name) => {
 
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`
     // console.log(url)
     fetch(url)
         .then(res => res.json())
-        .then(data => showNews(data.data))
-
-
+        .then(data => showNews(data.data, name))
         .catch(error => console.log(error))
 
 }
-const showNews = (datas) => {
+const showNews = (datas, name) => {
+    // console.log(datas)
+    // console.log(name)
     const sortedResponse = datas.sort(function (a, b) {
         return parseInt(b.total_view) - parseInt(a.total_view)
     });
     console.log(sortedResponse)
+    const foundMsg = document.getElementById('found-msg')
+    if (datas && name) {
+
+        foundMsg.classList.remove("d-none")
+        foundMsg.innerHTML = `
+        <h3>${sortedResponse.length} news found for ${name}</h3>
+        `
+    }
+    else {
+        foundMsg.classList.add("d-none")
+    }
+
 
 }
 

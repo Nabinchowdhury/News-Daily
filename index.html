@@ -26,8 +26,8 @@
 
                     <!-- <form class="d-flex" role="search"> -->
                     <ul class="navbar-nav ">
-                        <a class="navbar-brand fw-semibold fs-4 pe-3" href="#">News</a>
-                        <a class="navbar-brand fw-semibold fs-4 pe-3" href=" #">Blog</a>
+                        <a class="navbar-brand fw-semibold fs-5 pe-3" href="#">News</a>
+                        <a class="navbar-brand fw-semibold fs-5 pe-3" href=" #">Blog</a>
 
                         <img src="images/1.IMG_20200901_201042.jpg" alt="" class="rounded-circle"
                             style="height: 50px; width:50px;">
@@ -39,14 +39,46 @@
         <hr>
 
         <section id="news-items" class="d-inline-flex my-3 text-secondary flex-wrap">
-            <h6 class="px-4">Home </h6>
-
+            <h6 class="px-4" onclick="loadNews()">Home </h6>
 
         </section>
+
+        <section id="found-msg" class="bg-white p-3 d-none">
+
+        </section>
+
     </header>
 
 
     <main>
+        <section>
+            <div class="dropdown my-5" disabled>
+                <label for="" class="fw-bold fs-5">Sort By View: </label>
+                <button class="btn btn-white dropdown-toggle text-secondary fw-semibold" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false" disabled>
+                    Default
+                </button>
+
+            </div>
+        </section>
+
+        <section>
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="..." class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                                additional content. This content is a little bit longer.</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </main>
 
