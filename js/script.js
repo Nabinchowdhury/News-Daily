@@ -25,7 +25,18 @@ const loadNews = (id) => {
     // console.log(url)
     fetch(url)
         .then(res => res.json())
-        .then(datas => console.log(datas))
+        .then(data => showNews(data.data))
+
+
+        .catch(error => console.log(error))
+
+}
+const showNews = (datas) => {
+    const sortedResponse = datas.sort(function (a, b) {
+        return parseInt(b.total_view) - parseInt(a.total_view)
+    });
+    console.log(sortedResponse)
+
 }
 
 loadNewsItems();
