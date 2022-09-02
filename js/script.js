@@ -27,9 +27,16 @@ const loadNews = (id, name) => {
         .then(res => res.json())
         .then(data => showNews(data.data, name))
         .catch(error => console.log(error))
+    const spinner = document.getElementById("spinner")
+    spinner.classList.remove("d-none")
+
 
 }
 const showNews = (datas, name) => {
+    const foundMsg = document.getElementById('found-msg')
+    const newsCard = document.getElementById("news-card")
+    const spinner = document.getElementById("spinner")
+
 
     const sortedResponse = datas.sort(function (a, b) {
         // console.log(typeof a.total_view)
@@ -44,8 +51,7 @@ const showNews = (datas, name) => {
     });
     console.log(sortedResponse)
 
-    const foundMsg = document.getElementById('found-msg')
-    const newsCard = document.getElementById("news-card")
+
     newsCard.innerHTML = ``
 
 
@@ -55,10 +61,14 @@ const showNews = (datas, name) => {
         foundMsg.innerHTML = `
         <h3>${sortedResponse.length} news found for ${name}</h3>
         `
+        if (`${sortedResponse.length}` == 0) {
+            spinner.classList.add("d-none")
+        }
     }
     else {
         foundMsg.classList.add("d-none")
         newsCard.innerHTML = ""
+        spinner.classList.add("d-none")
     }
 
     for (const each of sortedResponse) {
@@ -85,16 +95,16 @@ const showNews = (datas, name) => {
                             <img src="${img}" class="rounded-circle"
                                 style="height: 50px; width:50px;" alt="">
                                 <div class="ms-2">
-                                <p class="mb-0 mt-2">${name ? name : "Anonymous Writer"}</p>
+                                <p class="mb-0 mt-2 me-5">${name ? name : "Anonymous Writer"}</p>
                             <p class="ms-2">${published_date ? published_date.slice(0, 10) : "No Date Found"}</p>
                                 </div>
                             
                         </div>
 
-                        <div class="d-flex align-items-center justify-content-center w-25">
+                        <div class="d-flex align-items-center  w-25">
                             <i class="fa-solid fa-eye"></i>
                             
-                            <p class="ms-2 mt-2" id="views">${total_view ? total_view : "No Views"}</p>
+                            <p class="ms-5 mt-2" id="views">${total_view ? total_view : "No Views"}</p>
                         </div>
                         <div class="d-flex align-items-center justify-content-center w-25">
                             <i class="fa-regular fa-star-half-stroke"></i>
@@ -113,7 +123,7 @@ const showNews = (datas, name) => {
         `
         newsCard.appendChild(news)
 
-
+        spinner.classList.add("d-none")
     }
 
 
