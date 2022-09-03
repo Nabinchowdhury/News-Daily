@@ -99,7 +99,7 @@ const showNews = (datas, name) => {
                                 style="height: 50px; width:50px;" alt="">
                                 <div class="ms-2">
                                 <p class="mb-0 mt-2 me-5">${name ? name : "Anonymous Writer"}</p>
-                            <p class="ms-2">${published_date ? published_date.slice(0, 10) : "No Date Found"}</p>
+                            <p class="ms-0">${published_date ? published_date.slice(0, 10) : "No Date Found"}</p>
                                 </div>
                             
                         </div>
