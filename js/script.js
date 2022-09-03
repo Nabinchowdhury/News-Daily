@@ -148,6 +148,7 @@ const loadModal = (id) => {
     fetch(url)
         .then(res => res.json())
         .then(data => showModal(data.data))
+        .catch(error => console.log(error))
 
 }
 
