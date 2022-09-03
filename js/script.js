@@ -39,14 +39,19 @@ const showNews = (datas, name) => {
 
 
     const sortedResponse = datas.sort(function (a, b) {
-        // console.log(typeof a.total_view)
-        // console.log(b.total_view)
-        // if (a.total_view != Number && b.total_view != Number) {
+        if (a === b) {
+            return 0;
+        }
 
-        // }
-        // else { 
-        return parseInt(b.total_view) - parseInt(a.total_view)
-        // }
+        if (a === null) {
+            return 1;
+        }
+        if (b === null) {
+            return -1;
+        }
+        // return parseInt(b.total_view) - parseInt(a.total_view)
+        return a.total_view < b.total_view ? 1 : -1
+
 
     });
     // console.log(sortedResponse)
