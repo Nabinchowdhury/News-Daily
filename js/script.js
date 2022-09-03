@@ -63,6 +63,9 @@ const showNews = (datas, name) => {
         `
         if (`${sortedResponse.length}` == 0) {
             spinner.classList.add("d-none")
+            foundMsg.innerHTML = `
+        <h3>No news found for ${name}</h3>
+        `
         }
     }
     else {
