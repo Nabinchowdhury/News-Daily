@@ -13,7 +13,7 @@ const showNewsItems = (datas) => {
         div.classList.add("d-inline-flex", "px-4")
         div.innerHTML = `
         
-        <h6 onclick="loadNews('${data.category_id}','${data.category_name}')">${data.category_name} </h6>
+        <h6 onclick="loadNews('${data.category_id}','${data.category_name}')" style="hover:pointer">${data.category_name} </h6>
         `
         newsItems.appendChild(div)
     }
@@ -49,7 +49,7 @@ const showNews = (datas, name) => {
         // }
 
     });
-    console.log(sortedResponse)
+    // console.log(sortedResponse)
 
 
     newsCard.innerHTML = ``
@@ -71,9 +71,9 @@ const showNews = (datas, name) => {
         spinner.classList.add("d-none")
     }
 
-    for (const each of sortedResponse) {
-        // console.log(each)
 
+
+    sortedResponse.forEach(each => {
         const { author, details, thumbnail_url, title, total_view } = each
         // console.log(author) 
         // console.log(details.length)
@@ -83,14 +83,14 @@ const showNews = (datas, name) => {
         news.classList.add('card', 'mb-3', "border-0")
         news.innerHTML = `
         <div class="row g-0 ">
-        <div class="col-md-3">
+        <div class="col-md-3" >
                         <img src="${thumbnail_url}" class="img-fluid rounded-start w-100 m-3" style="height: 300px;" "alt="...">
                     </div>
                     <div class="col-md-9">
                         <div class="card-body ms-5 mt-5" >
                             <h5 class="card-title">${title}</h5>
                             <p class="card-text">${details.length > 200 ? details.slice(0, 200) + "..." : details}</p>
-                               <div class="d-flex">
+                               <div class="d-flex mt-5">
                             <div class="d-flex align-items-center  w-25">
                             <img src="${img}" class="rounded-circle"
                                 style="height: 50px; width:50px;" alt="">
@@ -101,20 +101,25 @@ const showNews = (datas, name) => {
                             
                         </div>
 
-                        <div class="d-flex align-items-center  w-25">
-                            <i class="fa-solid fa-eye"></i>
+                        <div class="d-flex align-items-center ms-5 w-25">
+                            <i class="fa-solid fa-eye ms-4"></i>
                             
-                            <p class="ms-5 mt-2" id="views">${total_view ? total_view : "No Views"}</p>
+                            <p class="mt-2 ms-1" id="views">${total_view ? total_view : "No Views"}</p>
                         </div>
-                        <div class="d-flex align-items-center justify-content-center w-25">
-                            <i class="fa-regular fa-star-half-stroke"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center w-25">
-                            <i class="fa-solid fa-arrow-right"></i>
+
+                        <div class="d-flex align-items-center justify-content-right w-25 me-2">
+                                <i class="fa-regular fa-star-half-stroke"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                </div>
+                       
+                        <div  class="d-flex align-items-center justify-content-end w-10 me-1">
+                        
+                       
+                      <i class="fa-solid fa-arrow-right text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="loadModal('${each._id}')"></i>
+                  
                         </div>
                     </div>
                         </div>
@@ -124,14 +129,50 @@ const showNews = (datas, name) => {
         newsCard.appendChild(news)
 
         spinner.classList.add("d-none")
-    }
+    })
 
 
 }
 
+
 loadNewsItems();
 
 
+const loadModal = (id) => {
+    // console.log(id)
+    const url = `https://openapi.programming-hero.com/api/news/${id}`
+    // console.log(url)
+    fetch(url)
+        .then(res => res.json())
+        .then(data => showModal(data.data))
+
+}
+
+const showModal = (newsDetails) => {
+    // console.log(newsDetails
+    // modalBody.innerHTML = ``
+    for (news of newsDetails) {
+        const { author, details, title, total_view } = news
+        const { name, published_date } = author
+
+        const modalBody = document.getElementById("modal-body")
+
+        modalBody.innerHTML = `
+        
+                                <div class="card border-0">
+                                <div class="card-body">
+                                <h5 class="card-title">${title}</h5>
+                                <h6 class="card-title fw-semibold">Views: ${total_view ? total_view : "No Views"}</h6>
+                                <h6 class="card-title fw-semibold">Author: ${name ? name : "Anonymous Writer"}</h6>
+                                <h6 class="card-title fw-semibold">Date: ${published_date ? published_date.slice(0, 10) : "No Date Found"}</h6>
+                                <p class="card-text">${details}</p>
+                                
+                            </div>
+                                </div>
+        `
+        modalBody.appendChild(div)
+    }
+}
 
 
 
@@ -139,3 +180,4 @@ loadNewsItems();
 
 // const sortedResponse = datas.sort(function (a, b) { return parseInt(b.category_id) - parseInt(a.category_id) });
 // console.log(sortedResponse)
+
